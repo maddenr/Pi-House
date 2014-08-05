@@ -22,7 +22,7 @@
 #define INVALID_TEMP_SAMPLE 99999
 //Prototyping
 void sampleThermisterReading(int* thermisterSamplePtr, int RawADC);
-  double ThermisterReading(int RawADC);
+double ThermisterReading(int RawADC);
 void sendSwitchCommand(int pin, boolean turnOn);
 
 //define global vars
@@ -89,10 +89,10 @@ void loop(){
   if (millis() - time >10000){
     time=millis();
     Serial.println("{");
-    Serial.print("'indoorTemp':");
+    Serial.print("'A00':");
     Serial.print(indoorThermisterSample, DEC);
     Serial.println(".");
-    Serial.print("'humanDetected':");
+    Serial.print("'D13':");
     Serial.print(humanDetected ? "true" : "false");
 //    Serial.println(",");
     Serial.println("}");

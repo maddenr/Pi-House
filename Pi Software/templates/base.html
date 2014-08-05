@@ -3,20 +3,64 @@
 	<head>
 		<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
 		<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}"/>
-		<link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/bootstrap.min.css') }}"/>
+		<link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}"/>
 		
 		<script src="{{ url_for('static', filename='js/jquery-2.1.1.min.js') }}"></script>
 		<script src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}"></script>
+		<title>Pi House</title>
 	</head>
 	<body>
+		<center>
+			<h2>
+				Pi House
+			</h2>
+			<div id="sensorColumn">
+			</div>
+			<div id="addSensorModal" class="hidden">
+				<br>
+				<br>
+				<form id="ftp" class="center" action="/addSensors" method="post">
+					<h4>
+						Add Sensor
+					</h4>
+					<label>Sensor Label:<input type="text" name="sensorLabel" required></label>
+					<label>Type:
+						<select name="type" required>
+							<option value="switch">Switch</option>
+							<option value="temp">Temperature</option>
+							<option value="trip">Trip</option>
+						</select>
+					</label>
+					<input type="submit" value="Add Sensor">
+				</form>
+				
+				<button class="modalShow">Hide</button>
+				<br>
+				<br>
+			</div>
+		</center>
 		<footer>
-			$(document).ready(function(){
-				
-				
-				
-				
-				
-			});
+			<script>
+				$(document).ready(function(){
+					
+					$.ajax({
+							url: './sensorColumn',
+							cache: false
+						}).done(function(text){
+							$("#sensorColumn").html(text);
+							// run jq.each to register button handler for trip sensor and for switch sensors buttons. give each of the 3 buttons a class
+						});
+						$('.modalShow').each(function(){
+							$(this).on('click', function(){
+								$("#addSensorModal").toggle();
+							
+							});
+						});
+					
+					
+					
+				});
+			</script>
 		</footer>
 	</body>
 </html>
