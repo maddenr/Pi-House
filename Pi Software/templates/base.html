@@ -14,12 +14,16 @@
 			<h2>
 				Pi House
 			</h2>
+			<br>
+			<br>
 			<div id="sensorColumn">
 			</div>
+			<br>
+			<button class="modalShow">Add Sensor</button>
 			<div id="addSensorModal" class="hidden">
 				<br>
 				<br>
-				<form id="ftp" class="center" action="/addSensors" method="post">
+				<form id="ftp" class="center" action="/addSensor" method="post">
 					<h4>
 						Add Sensor
 					</h4>
@@ -31,6 +35,7 @@
 							<option value="trip">Trip</option>
 						</select>
 					</label>
+					<label>Pin String: <input type="text" name="pinStr" pattern=".{3,3}" title="pin type as a letter and then a 2 digit pin number. (Ex: D01, A03)" required></label>
 					<input type="submit" value="Add Sensor">
 				</form>
 				
@@ -44,11 +49,39 @@
 				$(document).ready(function(){
 					
 					$.ajax({
-							url: './sensorColumn',
+							url: './getSensorColumn',
 							cache: false
 						}).done(function(text){
 							$("#sensorColumn").html(text);
 							// run jq.each to register button handler for trip sensor and for switch sensors buttons. give each of the 3 buttons a class
+							$(".switchOn").each(function(){
+								var This = $(this);
+								This.on('click', function(){
+									var pinStr = This.data("pinstr");
+									$.ajax({
+										url : "/sendSwitchCommand/"+pinStr+"/1",
+										cache: false
+									}).done(function(data){
+										console.log(data);
+									});
+								});
+								
+							});
+							
+							$(".switchOff").each(function(){
+								var This = $(this);
+								This.on('click', function(){
+									var pinStr = This.data("pinstr");
+									$.ajax({
+										url : "/sendSwitchCommand/"+pinStr+"/0",
+										cache: false
+									}).done(function(data){
+										console.log(data);
+									});
+								});
+								
+							});
+							
 						});
 						$('.modalShow').each(function(){
 							$(this).on('click', function(){
@@ -56,9 +89,17 @@
 							
 							});
 						});
-					
-					
-					
+						
+					window.setInterval(function(){
+						$.ajax({
+							url: './getSensorColumn',
+							cache: false
+						}).done(function(text){
+							console.log("reloading sensor column...");
+							$("#sensorColumn").html(text);
+						});
+						
+					}, 30000);					
 				});
 			</script>
 		</footer>

@@ -3,12 +3,12 @@
 #define Outdoor_Thermister 1
 
 //Define Digital Pins here
-#define Socket1_ON 0
-#define Socket2_ON 1
-#define Socket3_ON 2
-#define Socket1_OFF 4
-#define Socket2_OFF 5
-#define Socket3_OFF 6
+#define Socket1_ON 2
+#define Socket2_ON 3
+#define Socket3_ON 4
+#define Socket1_OFF 6
+#define Socket2_OFF 7
+#define Socket3_OFF 8
 #define Human_Sensor1 13
 
 //Define Flags here
@@ -88,11 +88,11 @@ void loop(){
   
   if (millis() - time >10000){
     time=millis();
-    Serial.println("{");
-    Serial.print("'A00':");
+    Serial.print("{");
+    Serial.print("\"A00\":");
     Serial.print(indoorThermisterSample, DEC);
-    Serial.println(".");
-    Serial.print("'D13':");
+    Serial.print(",");
+    Serial.print("\"D13\":");
     Serial.print(humanDetected ? "true" : "false");
 //    Serial.println(",");
     Serial.println("}");
@@ -126,6 +126,8 @@ double ThermisterReading(int RawADC) {
 }
 
 void sendSwitchCommand(int pin, boolean turnOn){
-  //digitalWrite(pin, turnOn? HIGH : LOW);
+  digitalWrite(pin, turnOn? HIGH : LOW);
+  delay(500);
+  digitalWrite(pin, !turnOn? HIGH : LOW);
 }
 

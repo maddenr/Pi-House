@@ -1,0 +1,99 @@
+<h4>Switch Sensors</h4>
+<table class="table table-striped table-bordered">
+	<thead>
+		<th>#
+		</th>
+		<th>Switch Label
+		</th>
+		<th>Switch Action: On
+		</th>
+		<th>Switch Action: Off
+		</th>
+		<th>Pin
+		</th>
+	</thead>
+	<tbody>
+	{% for i in range(slen) %}
+	<tr>
+		<td> {{ i +1 }}
+		</td>
+		<td> {{ switch[i]['label'] }}
+		</td>
+		<td> <button class="switchOn" data-pinstr="{{ switch[i]['pinStr'] }}">On</button>
+		</td>
+		<td> <button class="switchOff" data-pinstr="{{ switch[i]['pinStr'] }}">Off</button>
+		</td>
+		<td> {{ switch[i]['pinStr'] }}
+		</td>
+	</tr>
+	{% endfor %}
+	</tbody>
+</table>
+
+<br>
+<br>
+
+<h4>Temperature Sensors</h4>
+<table class="table table-striped table-bordered">
+	<thead>
+		<th>#
+		</th>
+		<th>Sensor Label
+		</th>
+		<th>Reading (Deg. C)
+		</th>
+		<th>Pin
+		</th>
+	</thead>
+	<tbody>
+	{% for j in range(tlen) %}
+	<tr>
+		<td> {{ j +1 }}
+		</td>
+		<td> {{ temp[j]['label'] }}
+		</td>
+		<td> {{ sensorData[temp[j]['pinStr']] }}
+		</td>
+		<td> {{ temp[j]['pinStr'] }}
+		</td>
+	</tr>
+	{% endfor %}
+	</tbody>
+</table>
+
+<br>
+<br>
+
+<h4>Trip Sensors</h4>
+<table class="table table-striped table-bordered">
+	<thead>
+		<th>#
+		</th>
+		<th>Sensor Label
+		</th>
+		<th>Was Tripped
+		</th>
+		<th>Pin
+		</th>
+	</thead>
+	<tbody>
+	{% for k in range(rlen) %}
+	<tr>
+		<td> {{ k +1 }}
+		</td>
+		<td> {{ trip[k]['label'] }}
+		</td>
+		<td> {{ resolveWasTripped(sensorData[trip[k]['pinStr']]) }}
+		</td>
+		<td> {{ trip[k]['pinStr'] }}
+		</td>
+	</tr>
+	{% endfor %}
+	</tbody>
+</table>
+<br>
+<form action="/alertAddress" method="post">
+	<h4>Alert Address</h4>
+	<input type="text" name="alertAddress" value="{{ alertAddress }}">
+	<input type="submit" value="Update">
+</form>
