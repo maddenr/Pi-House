@@ -35,7 +35,7 @@ def sensorColumn():
 		with open("alerts.txt", "r") as file:
 			alertAddress = file.read().strip()
 
-	return render_template("sensorsColumn.html",
+	return render_template("SensorsColumn.html",
 		switch=switch, temp=temp, trip=trip,
 		slen=len(switch), tlen=len(temp), rlen=len(trip), sensorData=sensorData, alertAddress=alertAddress)
 

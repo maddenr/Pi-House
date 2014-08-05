@@ -6,7 +6,7 @@ from threading import Thread
 from os import remove
 import smtplib
 from email.mime.text import MIMEText
-
+import sys
 
 def sendEmailAlert(emailAddress):
 	sender = "rm0100101@gmail.com"
@@ -26,7 +26,7 @@ def sendEmailAlert(emailAddress):
 def arduinoCommunication():
 	import serial
 	try:
-		arduino = serial.Serial(2, 19200, timeout=1)
+		arduino = serial.Serial("/dev/ttyACM0", 19200, timeout=1)
 		while True:
 			if isfile("switchAction.txt"):
 				with open("switchAction.txt", "r") as file:
