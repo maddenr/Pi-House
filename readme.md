@@ -12,7 +12,7 @@ Thermistor stuff
 
 Remote Power Socket Reverse Engineering
 - A guide done by someone with the same chipset I had [here](http://oddwires.co.uk/alarm/hardware/)
--RS2260-R4 pinout and datasheet [here](http://www.dz863.com/datasheet-8368852863-HS2260-R4_Cmos/)
+- RS2260-R4 pinout and datasheet [here](http://www.dz863.com/datasheet-8368852863-HS2260-R4_Cmos/)
 
 Full Hardware Listing
 - [Arduino Starter Kit w/ Breadboard](http://www.amazon.com/gp/product/B0051QHPJM/ref=oh_aui_detailpage_o06_s00?ie=UTF8&psc=1)
@@ -55,11 +55,15 @@ Most of the Dependencies
 </h3>
 
 Most of the dependencies can be taken care of by doing
+
 <code>
 sudo apt get update && sudo apt-get upgrade
 </code>
+
 and
+
 <code>
 sudo apt get install python-flask && sudo apt-get install python-serial
 </code>
+
 If there are issues with dependencies contact me.
